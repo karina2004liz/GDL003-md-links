@@ -92,14 +92,36 @@ fs.readFile('README.md', 'utf-8', (err, data) => {
 */
 
 // función mezclada de leer directorio y file
+
+
 const fs = require('fs');
+
+/*
 
  fs.readdir('./', function(err, files) {
    files
         .filter(function(file) { console.log(file); return path.extname(file)=== '.md' })
         .forEach(function(file) { fs.readFile(file, 'utf-8', function(err, contents) { console.log(contents); }); });
 });
+*/
 
+//intento de separar funciones
+
+// leer dir
+
+const readDir = (filePath) =>{
+   let allTheFiles = fs.readdirSync(filePath);
+   return allTheFiles;
+}
+console.log(readDir('./'));
+
+// leer md
+
+const readFile = (filePath)=>{
+   let showFile = fs.readFileSync(filePath)
+   return showFile.toString();
+}
+console.log(readFile('./README.md'));
 
 
 
