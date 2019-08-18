@@ -69,10 +69,7 @@ fetch(url, options).then(res => {
 const path = require('path');
 //mdLinks
 
-const filePath = require('../GDL003-md-links');
-
 module.exports = (filePath) =>{
-
 
 if(path.extname(filePath)=== '.md'){
   
@@ -81,9 +78,6 @@ if(path.extname(filePath)=== '.md'){
 return false;
 };
 
-
-
-console.log("qué pasa");
 
 /*
 const fs = require('fs');
@@ -97,32 +91,13 @@ fs.readFile('README.md', 'utf-8', (err, data) => {
  });
 */
 
-
+// función mezclada de leer directorio y file
 const fs = require('fs');
 
  fs.readdir('./', function(err, files) {
    files
         .filter(function(file) { console.log(file); return path.extname(file)=== '.md' })
-        .forEach(function(file) { fs.readFile(file, 'utf-8', function(err, contents) { 
-           
-         const datos = contents.toString();
-         const links = 'https?:\S+\w';
-
-         const pos = -1;
-
-         datos.forEach(function(data){
-
-            pos = links.search(data.toString());
-
-            if (pos!=-1){
-               console.log(data);
-
-            }
-
-         })
-
-         
-         console.log(contents); }); });
+        .forEach(function(file) { fs.readFile(file, 'utf-8', function(err, contents) { console.log(contents); }); });
 });
 
 
