@@ -105,6 +105,17 @@ const fs = require('fs');
 });
 */
 
+
+//archivo md
+
+const fileMd = (filePath) => {
+	if (path.extname(filePath) === ".md") {
+		return true;
+	}
+	return false;
+};
+
+//console.log(fileMd('./README.md'));
 //intento de separar funciones
 
 // leer dir
@@ -113,7 +124,7 @@ const readDir = (filePath) =>{
    let allTheFiles = fs.readdirSync(filePath);
    return allTheFiles;
 }
-console.log(readDir('./'));
+//console.log(readDir('./'));
 
 // leer md
 
@@ -121,7 +132,21 @@ const readFile = (filePath)=>{
    let showFile = fs.readFileSync(filePath)
    return showFile.toString();
 }
-console.log(readFile('./README.md'));
+//console.log(readFile('./README.md'));
+
+
+//leer sólo si es md
+
+const readMd = (filePath) => {
+     if (fileMd(filePath)) {
+        return readFile(filePath);
+   }
+   return console.log("no es archivo md");
+}
+
+console.log(readMd('./README.md'));
+   
+
 
 
 
