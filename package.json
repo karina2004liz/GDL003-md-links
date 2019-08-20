@@ -25,5 +25,9 @@
   "homepage": "https://github.com/karina2004liz/GDL003-md-links#readme",
   "devDependencies": {
     "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "net-ping": "^1.2.3",
+    "ping": "^0.2.2"
   }
 }

@@ -66,8 +66,10 @@ fetch(url, options).then(res => {
 
 */
 
+const fs = require('fs');
+const url = require('url');
+const request = require('request');
 const path = require('path');
-//mdLinks
 
 module.exports = (filePath) =>{
 
@@ -94,7 +96,7 @@ fs.readFile('README.md', 'utf-8', (err, data) => {
 // función mezclada de leer directorio y file
 
 
-const fs = require('fs');
+
 
 /*
 
@@ -134,7 +136,6 @@ const readFile = (filePath)=>{
 }
 //console.log(readFile('./README.md'));
 
-
 //leer sólo si es md
 
 const readMd = (filePath) => {
@@ -145,7 +146,41 @@ const readMd = (filePath) => {
 }
 
 console.log(readMd('./README.md'));
+
+
+
+
+const findLinks = (fileMd) =>{
+
+let textMd = readFile(fileMd);
+console.log(textMd);
+let regExp = new RegExp(/https?:\S+\w/g);
+let found = textMd.match(regExp);
+
+console.log(found.length);
+
+found.forEach(host => {
+ 
+   request({method: 'HEAD', uri:host}, function (error, response) {
+      let page = url.parse(host);
+      let pageHref = page.href;
+
+
+      if (!error && response.statusCode == 200) {
+        console.log("Pagina funcionando " , pageHref );
+      
+              
+      }
+      else{
+         console.log("Pagina no funcionando");
+         console.log(pageHref);
+         console.log(error);
+      }
+    });
+});
+}
    
+console.log(findLinks('./README.md'));
 
 
 
