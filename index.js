@@ -1,84 +1,62 @@
-/*  
-
-https?:\S+\w  LINKS
-
-\[[^{}]*\] MARKDON
-
-console.log('hola mundo Node!');
-
-for (var i=0; i<10; i++) {
-  console.log('hola mundo ' + i);
-}
-setTimeout(function() {
-  console.log('Hola NodeJS');
-}, 3000);
-
-
- var http = require("http");
-var server = http.createServer(function (peticion, respuesta){
-   respuesta.end("Hola DesarrolloWeb.com");
-});
-server.listen(3000, function(){
-   console.log("tu servidor está listo en " + this.address().port);
-});
+ 
 
 
 
 
-var eventos = require('events');
-
-var EmisorEventos = eventos.EventEmitter; 
-var ee = new EmisorEventos(); 
-ee.on('datos', function(fecha){ 
-   console.log(fecha); 
-}); 
-setInterval(function(){ 
-   ee.emit('datos', Date.now()); 
-}, 500);
-
-
-var fs = require('fs');
-
-fs.readdir('/path/to/md/files', function(err, files) {
-    files
-         .filter(function(file) { return file.substr(-5) === '.md'; })
-         .forEach(function(file) { fs.readFile(file, 'utf-8', function(err, contents) { inspectFile(contents); }); });
-});
-
-function inspectFile(contents) {
-    if (contents.indexOf('data-template="README"') != -1) {
-        // do something
-    }
-}
-
-
-fetch(url, options).then(res => {
-    return res.text()
-   }).then(text => {
-    sys.__v0['対象'] = text
-    callback(text)
-   }).catch(err => {
-    console.log('[fetch.error]', err)
-    sys.__v0['AJAX:ONERROR'](err)
-   })
 
 
 
-*/
+ 
+
+// https?:\S+\w  LINKS
+
+// \[[^{}]*\] MARKDON
+
 
 const fs = require('fs');
 const url = require('url');
 const request = require('request');
 const path = require('path');
 
-module.exports = (filePath) =>{
+module.exports = {
 
-if(path.extname(filePath)=== '.md'){
+  findMd : (filePath) =>{
+
+   if(path.extname(filePath)=== '.md'){
   
    return true;
 }
 return false;
-};
+},
+
+
+   readFile :  (filePath,callback)=>{
+   fs.readFile(filePath, (error,data)=>{
+       if(error){
+           throw error;
+       }
+      callback(data);
+
+   })
+
+},
+
+
+   findLinks : (data)=>{
+
+      let textMd = data.toString();
+      let regExp = new RegExp(/https?:\S+\w/g);
+      let found = textMd.match(regExp);
+         
+      return found
+
+
+   }
+
+
+
+
+}
 
 
 /*
@@ -93,19 +71,13 @@ fs.readFile('README.md', 'utf-8', (err, data) => {
  });
 */
 
-// función mezclada de leer directorio y file
-
 
 
 
 /*
 
- fs.readdir('./', function(err, files) {
-   files
-        .filter(function(file) { console.log(file); return path.extname(file)=== '.md' })
-        .forEach(function(file) { fs.readFile(file, 'utf-8', function(err, contents) { console.log(contents); }); });
-});
-*/
+
+
 
 
 //archivo md
@@ -157,31 +129,152 @@ console.log(textMd);
 let regExp = new RegExp(/https?:\S+\w/g);
 let found = textMd.match(regExp);
 
-console.log(found.length);
+return found
+}
 
-found.forEach(host => {
+   
+console.log(findLinks('./README.md'));
+
+
+
+const filterLinks = () =>{
+
+let allLinks = findLinks('./README.md');
+
+allLinks.forEach(host => {
  
    request({method: 'HEAD', uri:host}, function (error, response) {
       let page = url.parse(host);
       let pageHref = page.href;
 
-
       if (!error && response.statusCode == 200) {
         console.log("Pagina funcionando " , pageHref );
-      
-              
+       // return true; 
       }
       else{
          console.log("Pagina no funcionando");
          console.log(pageHref);
          console.log(error);
+        // return false;
       }
     });
 });
+
+return allLinks;
+
 }
-   
-console.log(findLinks('./README.md'));
+
+console.log(filterLinks());
 
 
+
+
+
+
+*/
+
+
+
+
+const readFile = (filePath)=>{
+   let showFile = fs.readFileSync(filePath)
+   return showFile.toString();
+}
+console.log(readFile('./README.md'));
+
+
+
+
+
+
+
+
+
+
+
+function checkStatus(res) {
+
+
+
+return new Promise((resolved,rejected)=>{
+
+    let objectStatsValidate = {};
+    let myArrayData = [];
+
+    if (res.status == 200) { 
+
+        myArrayData.push(data={
+            link: res.url,
+            data: true
+
+          })
+
+        
+    } else {
+
+        myArrayData.push(data={
+            link: res.url,
+            data: false
+
+          })
+
+        }
+objectStatsValidate = myArrayData.length;
+
+resolved(objectStatsValidate.length)
+})
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+console.log('links found: ', linksFound);
+
+const arrayP = [];
+
+
+linksFound.forEach(host => {
+
+request(host ,{json:true}, function (error, response) {
+  let page = url.parse(host);
+  let pageHref = page.href;
+
+  
+  if (!error && response.statusCode == 200) {
+
+    arrayP.push({
+      response : true,
+      page : pageHref,
+  } );
+
+
+    //console.log(response.statusCode);
+
+  }
+  else{
+
+   // console.log("no response")
+
+  }
+
+
+});
+
+
+
+
+
+
+});
 
 

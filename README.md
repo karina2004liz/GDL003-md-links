@@ -344,5 +344,4 @@ si tienes dudas existenciales con respecto a estas decisiones. No existe una
 - [ ] Puedes agregar más estadísticas.
 - [ ] Integración continua con Travis o Circle CI.
 
-
-[](https://es.pagina.fake)
+- [Este es un link falso](https://developer.mozilla.org/es/docs/Web/JavaScript/Introducci%C3%B3n_a_JavaScript_orientado_a_objeto)
