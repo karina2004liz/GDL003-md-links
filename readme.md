@@ -19,3 +19,12 @@ el status de nuestros links.
 
 A continuación se muestra el diagrama de flujo elaborado para la solución de este proyecto.
 ![Diagrama](https://i.ibb.co/w6YRPpy/My-Diagrama.jpg)
+
+# Dependencias
+
+Para el desarrollo del proyecto se hizo uso de las siguientes dependencias:
+
+- [marked]
+- [node-fetch]
+- [eslint]
+- [jest]
