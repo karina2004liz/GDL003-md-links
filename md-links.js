@@ -14,7 +14,11 @@ const fileMd = (filePath) => {
 	return false;
 };
 
-console.log(fileMd('./README.md'));
+//process.argv nos sirve para manipular la data de la consola
+
+console.log(fileMd(process.argv[2]));
+
+
 
 //trying functions callbacks
 
@@ -26,7 +30,7 @@ const readFile = (filePath,callback)=>{
             throw error;
         }
     callback(data);
-       console.log(filterLinks(findLinks(data.toString()))
+       console.log(getLinks(findLinks(data.toString()))
        .then(data=>{
            console.log(data)
        }))
@@ -79,7 +83,7 @@ readFile('./README.md')
 
 readFile('./README.md')
 .then((fileContent)=>{
-	console.log(filterLinks(fileContent).then(data =>{
+	console.log(getLinks(fileContent).then(data =>{
 console.log(data)
     }))
 });
@@ -91,7 +95,7 @@ console.log(data)
 //trying data
 readFile('./README.md')
 .then((fileContent)=>{
-	console.log(filterLinks(fileContent).then(data =>{
+	console.log(getLinks(fileContent).then(data =>{
         console.log(countLinks(data).then(link=>{
              console.log(link)
         }))
@@ -124,7 +128,7 @@ readFile('./README.md')
 
 //Getting links ok and No Ok
 
-const filterLinks = (linksFound) =>{
+const getLinks = (linksFound) =>{
  
     let linksArray =[];
     linksArray = linksFound;
@@ -159,25 +163,25 @@ const filterLinks = (linksFound) =>{
 
 const countLinks = (arrayToStats) => {
     return new Promise((resolved, rejected) => {
-       let objectStatsValidate = {};
+       let objToValidate = {};
        let linksUnique = [];
-       arrayToStats.forEach(el => {
-          linksUnique.push(el.href);
+       arrayToStats.forEach(linkUrl => {
+          linksUnique.push(linkUrl.href);
        });
        
        linksUnique = [...new Set(linksUnique)];
-       objectStatsValidate.Total = arrayToStats.length;
-       objectStatsValidate.Unique = linksUnique.length;
+       objToValidate.Total = arrayToStats.length;
+       objToValidate.Unique = linksUnique.length;
 
        let brokenLinkStatus =[];
-       arrayToStats.forEach(el => {
-          brokenLinkStatus.push(el.statusText);
+       arrayToStats.forEach(linkUrl => {
+          brokenLinkStatus.push(linkUrl.statusText);
        });
      
-       let allBrokenLink = brokenLinkStatus.filter(el => el === "Not Found");
-       objectStatsValidate.Broken = allBrokenLink.length;
+       let allBrokenLink = brokenLinkStatus.filter(linkUrl => linkUrl === "Not Found");
+       objToValidate.Broken = allBrokenLink.length;
  
-       resolved(objectStatsValidate);
+       resolved(objToValidate);
     });
  }
 
@@ -190,3 +194,5 @@ const countLinks = (arrayToStats) => {
   .find();
  
 files.then(console.log);
+
+
