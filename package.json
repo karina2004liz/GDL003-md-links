@@ -27,6 +27,7 @@
     "jest": "^24.8.0"
   },
   "dependencies": {
+    "filehound": "^1.17.3",
     "marked": "^0.7.0",
     "net-ping": "^1.2.3",
     "node-fetch": "^2.6.0",

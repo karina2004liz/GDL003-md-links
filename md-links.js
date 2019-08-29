@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
-
+const FileHound = require('filehound')
 
 //return true or false if the file is md
 const fileMd = (filePath) => {
@@ -180,3 +180,13 @@ const countLinks = (arrayToStats) => {
        resolved(objectStatsValidate);
     });
  }
+
+
+
+ const files = FileHound.create()
+ .discard('node_modules')
+  .paths('./')
+  .ext('md')
+  .find();
+ 
+files.then(console.log);
