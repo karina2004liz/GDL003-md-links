@@ -12,6 +12,9 @@ Estos archivos `Markdown` normalmente contienen _links_ (vínculos/ligas) que
 muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de
 la información que se quiere compartir.
 
+Por lo cuál se crea esta librería que vamos a poder implementar con la finalidad de verificar
+el status de nuestros links.
+
 # Diagrama de flujo
 
 A continuación se muestra el diagrama de flujo elaborado para la solución de este proyecto.
