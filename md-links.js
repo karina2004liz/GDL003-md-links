@@ -164,7 +164,7 @@ const countLinks = (arrayToStats) => {
        arrayToStats.forEach(el => {
           linksUnique.push(el.href);
        });
-       //Remove duplicate elements from the array
+       
        linksUnique = [...new Set(linksUnique)];
        objectStatsValidate.Total = arrayToStats.length;
        objectStatsValidate.Unique = linksUnique.length;
