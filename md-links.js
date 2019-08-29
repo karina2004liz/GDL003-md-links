@@ -67,7 +67,7 @@ return new Promise((resolved,rejected)=>{
 }
 
 
-
+/*
 
 readFile('./README.md')
 .then((fileContent)=>{
@@ -84,7 +84,7 @@ console.log(data)
     }))
 });
 
-
+*/
 
 
 
@@ -164,7 +164,8 @@ const countLinks = (arrayToStats) => {
        arrayToStats.forEach(el => {
           linksUnique.push(el.href);
        });
-       linksUnique = [new Set(linksUnique)];
+       //Remove duplicate elements from the array
+       linksUnique = [...new Set(linksUnique)];
        objectStatsValidate.Total = arrayToStats.length;
        objectStatsValidate.Unique = linksUnique.length;
 
