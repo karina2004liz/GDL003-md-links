@@ -22,9 +22,13 @@ A continuación se muestra el diagrama de flujo elaborado para la solución de e
 
 # Dependencias
 
-Para el desarrollo del proyecto se hizo uso de las siguientes dependencias:
+Para el desarrollo del proyecto se utilizaron las siguientes dependencias:
 
 - [marked]
 - [node-fetch]
 - [eslint]
 - [jest]
+- [chalk]
+- [node-emoji]
+
+

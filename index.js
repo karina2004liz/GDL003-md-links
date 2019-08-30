@@ -1,4 +1,116 @@
+
+let options = [];
+let arrayTerminal = [];
+const chalk = require('chalk');
+const process = require('process'); 
+const mdLinks= require('./mdLinks');
+const emoji = require('node-emoji')
+
+
+process.argv.forEach((val, index) => {
+   arrayTerminal.push(process.argv[index]);
+
+   });
+
+   //leyendo las opciones de la terminal
+if (arrayTerminal[3] && arrayTerminal[4]){
+   if ((arrayTerminal[3] === "--validate" && arrayTerminal[4] === "--stats" )){
+      options.push(
+      {validate:true},
+      {stats:true}
+      );
+ }
+   if ((arrayTerminal[3] === "--stats" && arrayTerminal[4] === "--validate")){
+      options.push(
+      {stats:true},
+      {validate:true}
+      );
+     }
+    }
+else if (arrayTerminal[3]){
+if (arrayTerminal[3] === "--validate"){
+   options.push(
+   {validate:true}
+   );
+}
+if (arrayTerminal[3] === "--stats"){
+   options.push(
+   {stats:true}
+   );
+}
+
+}
+//llamando a la funcion mdLinks
+//aquí se valida que el index se ingrese a la terminal para hacer la funcionalidad
+ if(arrayTerminal[2]){
+    //recibe mi array y opciones
+mdLinks(arrayTerminal[2],options)
+.then(data => {
+
+
+      if (options.length === 2 && ((options[0].validate && options[1].stats) || (options[1].validate && options[0].stats))) {
+        
+         console.log(emoji.get("rainbow"),emoji.get("two_hearts"),chalk.hex('#F619C0').bold(`  Total:`),chalk.hex('#F619C0').bold(data.Total),emoji.get("two_hearts"),emoji.get("rainbow"));
+         console.log(emoji.get("sparkling_heart"),emoji.get("unicorn_face"),chalk.hex('#19BAF6').bold(`  Unique:`),chalk.hex('#19BAF6').bold(data.Unique),emoji.get("unicorn_face"),emoji.get("sparkling_heart"));
+         console.log(emoji.get("sob"),emoji.get("broken_heart"),chalk.hex('#ED0700').bold(`  Broken:`),chalk.hex('#ED0700').bold(data.Broken),emoji.get("broken_heart"),emoji.get("sob"));
+                      
+
+   }
+
+   if ((options.length === 1 && options[0].validate)) {
+
+      data.forEach(el =>{
  
+         console.log(emoji.get("unicorn_face"),` ${chalk.hex('#F619C0').bold(el.file)}`,emoji.get("space_invader"), ` ${chalk.hex('#7E0CEF').bold(el.href)}`,emoji.get("palm_tree"),`${chalk.hex('#58F10C').bold(el.status)} ${chalk.hex('#58F10C').bold(el.statusText)}`,emoji.get("palm_tree")," ",emoji.get("star2"),` ${chalk.yellow.bold(el.text)}`,emoji.get("star2"))
+
+      });   
+   
+   }
+   if (options.length === 1 && options[0].stats) {
+
+      console.log(emoji.get("rainbow"),emoji.get("two_hearts"),chalk.hex('#F619C0').bold(`  Total:`),chalk.hex('#F619C0').bold(data.Total),emoji.get("two_hearts"),emoji.get("rainbow"));
+      console.log(emoji.get("sparkling_heart"),emoji.get("unicorn_face"),chalk.hex('#19BAF6').bold(`  Unique:`),chalk.hex('#19BAF6').bold(data.Unique),emoji.get("unicorn_face"),emoji.get("sparkling_heart"));
+      console.log(emoji.get("sob"),emoji.get("broken_heart"),chalk.hex('#ED0700').bold(`  Broken:`),chalk.hex('#ED0700').bold(data.Broken),emoji.get("broken_heart"),emoji.get("sob"));
+                   
+
+
+   }
+
+   
+   
+})
+.catch(error=> console.log(error));
+ }
+
+ else { console.log(chalk.hex('#ED0700').bold("Proporciona un archivo para leer", emoji.get('face_with_rolling_eyes')))} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13,6 +125,13 @@
 // \[[^{}]*\] MARKDON
 
 
+
+
+
+
+/*
+
+const chalk = require('chalk');
 const fs = require('fs');
 const url = require('url');
 const request = require('request');
@@ -173,7 +292,7 @@ console.log(filterLinks());
 
 */
 
-
+/*
 
 
 const readFile = (filePath)=>{
@@ -192,7 +311,7 @@ console.log(readFile('./README.md'));
 
 
 
-function checkStatus(res) {
+function checkStatus(data) {
 
 
 
@@ -201,10 +320,10 @@ return new Promise((resolved,rejected)=>{
     let objectStatsValidate = {};
     let myArrayData = [];
 
-    if (res.status == 200) { 
+    if (data.status == 200) { 
 
         myArrayData.push(data={
-            link: res.url,
+            link: data.url,
             data: true
 
           })
@@ -213,7 +332,7 @@ return new Promise((resolved,rejected)=>{
     } else {
 
         myArrayData.push(data={
-            link: res.url,
+            link: data.url,
             data: false
 
           })
@@ -278,3 +397,4 @@ request(host ,{json:true}, function (error, response) {
 });
 
 
+*/

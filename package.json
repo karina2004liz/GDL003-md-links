@@ -19,6 +19,9 @@
   ],
   "author": "Karina",
   "license": "ISC",
+  "bin": {
+    "md-links": "index.js"
+  },
   "bugs": {
     "url": "https://github.com/karina2004liz/GDL003-md-links/issues"
   },
@@ -27,9 +30,11 @@
     "jest": "^24.8.0"
   },
   "dependencies": {
+    "chalk": "^2.4.2",
     "filehound": "^1.17.3",
     "marked": "^0.7.0",
     "net-ping": "^1.2.3",
+    "node-emoji": "^1.10.0",
     "node-fetch": "^2.6.0",
     "ping": "^0.2.2",
     "simple-get": "^3.0.3"
