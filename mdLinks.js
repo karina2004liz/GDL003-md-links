@@ -10,6 +10,7 @@ const mdLinks = (filePath, options) => {
 
 return new Promise((resolved, rejected) => {
 
+   //Validando mi archivo que todo esté ok con fs,stats, me proporciona data de el archivo recibido
       fs.stat(filePath, (error, stats) => {
 
    if (error) {
@@ -17,6 +18,7 @@ return new Promise((resolved, rejected) => {
          }
        else {
 
+         //Empiza mi función stats en caso de que sea un File
    if (stats.isFile()) {
                // llamar a la funcion para imprimir los links en la consola
       readingFile(filePath)
@@ -51,6 +53,7 @@ return new Promise((resolved, rejected) => {
           .catch(error => (error));
                }  
 
+               // Empieza mi función stats para en caso de que sea Dir
              if (stats.isDirectory()) {
 
                resolved(starAppWithFileOrDir(filePath, options));
