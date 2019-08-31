@@ -6,7 +6,7 @@ const process = require('process');
 const mdLinks= require('./mdLinks');
 const emoji = require('node-emoji')
 
-
+//DATA QUE ENTRA POR LA TERMINAL node <i> <file> <val> <st>
 process.argv.forEach((val, index) => {
    arrayTerminal.push(process.argv[index]);
 

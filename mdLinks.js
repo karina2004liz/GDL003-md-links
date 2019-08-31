@@ -64,7 +64,7 @@ return new Promise((resolved, rejected) => {
 });
 }
    
-//Iniciamos el programa, recibe mi filepath y las opciones de la consola ya sea stats o validate
+//Inicio: Recibe mi filepath y las opciones de la consola ya sea stats o validate
 const starAppWithFileOrDir = (filePath, options) => {
 
    return new Promise((resolved, rejected) => {
@@ -123,9 +123,7 @@ const starAppWithFileOrDir = (filePath, options) => {
   })
   })
 .catch(error => (error))
-           
-           
-     
+               
 }
 
 //funcion para capturar los links
@@ -133,14 +131,15 @@ const readingFile = (filePath) => {
    
    return new Promise((resolved, rejected) => {
    fs.readFile(filePath, "utf-8", (error, data) => {
-   if (error) {
+      if (error) {
          rejected(error);
-   }
-   else {
-   let arrayGetLinks = [];
-   const renderer = new marked.Renderer();
-   renderer.link = (href, title, text) => {
-   arrayGetLinks.push({
+      }
+      else {
+      let arrayGetLinks = [];
+      const renderer = new marked.Renderer();
+      renderer.link = (href, title, text) => {
+      arrayGetLinks.push({
+         
          file: path.basename(filePath),
          href: href,
          text: text
@@ -157,7 +156,7 @@ resolved(arrayGetLinks);
 });
 
 }
-//funcion para imprimir los links ok y no ok
+//funcion para imprimir los links funcionales con fetch
 const getLinksOknoOk = (linksFound) =>{
    let linksArray =[];
    linksArray = linksFound;
@@ -186,7 +185,9 @@ const getLinksOknoOk = (linksFound) =>{
 //funcion para contar links unicos, reptidos y rotos
 const countLinks = (arrayOfreadFile) => {
    return new Promise((resolved, rejected) => {
+      //creando obj
    let objToValidate = {};
+   //links unicos
    let linksUnique = [];
       arrayOfreadFile.forEach(linkUrl => {
       linksUnique.push(linkUrl.href);
@@ -194,7 +195,7 @@ const countLinks = (arrayOfreadFile) => {
    linksUnique = [...new Set(linksUnique)];
        objToValidate.Total = arrayOfreadFile.length;
        objToValidate.Unique = linksUnique.length;
-   
+   //links rotos
    let brokenLinkStatus =[];
       arrayOfreadFile.forEach(linkUrl => {
       brokenLinkStatus.push(linkUrl.statusText);
