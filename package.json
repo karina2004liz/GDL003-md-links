@@ -1,6 +1,6 @@
 {
-  "name": "mdlinks-getmylinksplease",
-  "version": "0.1.3",
+  "name": "mdlinks-getmylinks",
+  "version": "0.1.4",
   "description": "## Preámbulo",
   "main": "index.js",
   "directories": {
