@@ -26,8 +26,8 @@ Puede ser usado con archivos o directorios.
 
 Los comandos ejecutables son:
 
-- [--validate]
-- [--stats]
+- `--validate`
+- `--stats`
 
 Pueden aplicarse uno por uno o ambos.
 
