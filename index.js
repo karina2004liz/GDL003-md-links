@@ -47,6 +47,12 @@ if (arrayTerminal[3] === "--stats"){
 mdLinks(arrayTerminal[2],options)
 .then(data => {
 
+   if(options.length === 0){
+
+      console.log(data)
+
+   }
+
 
       if (options.length === 2 && ((options[0].validate && options[1].stats) || (options[1].validate && options[0].stats))) {
         
@@ -61,16 +67,18 @@ mdLinks(arrayTerminal[2],options)
 
       data.forEach(el =>{
  
-         console.log(emoji.get("unicorn_face"),` ${chalk.hex('#F619C0').bold(el.file)}`,emoji.get("space_invader"), ` ${chalk.hex('#7E0CEF').bold(el.href)}`,emoji.get("palm_tree"),`${chalk.hex('#58F10C').bold(el.status)} ${chalk.hex('#58F10C').bold(el.statusText)}`,emoji.get("palm_tree")," ",emoji.get("star2"),` ${chalk.yellow.bold(el.text)}`,emoji.get("star2"))
-
+         console.log(emoji.get("unicorn_face"),` ${chalk.hex('#F619C0').bold(el.file)}`,"\n",emoji.get("space_invader"), ` ${chalk.hex('#7E0CEF').bold(el.href)}`,"\n",emoji.get("star2"),` ${chalk.yellow.bold(el.text)}`,emoji.get("star2"),"\n",emoji.get("palm_tree"),`${chalk.hex('#58F10C').bold(el.status)} ${chalk.hex('#58F10C').bold(el.statusText)}`,emoji.get("palm_tree"),)
+         console.log("");
       });   
+
+      console.log(chalk.red.bold("Links founded:"),chalk.red.bold(data.length))
    
    }
    if (options.length === 1 && options[0].stats) {
 
       console.log(emoji.get("rainbow"),emoji.get("two_hearts"),chalk.hex('#F619C0').bold(`  Total:`),chalk.hex('#F619C0').bold(data.Total),emoji.get("two_hearts"),emoji.get("rainbow"));
       console.log(emoji.get("sparkling_heart"),emoji.get("unicorn_face"),chalk.hex('#19BAF6').bold(`  Unique:`),chalk.hex('#19BAF6').bold(data.Unique),emoji.get("unicorn_face"),emoji.get("sparkling_heart"));
-      console.log(emoji.get("sob"),emoji.get("broken_heart"),chalk.hex('#ED0700').bold(`  Broken:`),chalk.hex('#ED0700').bold(data.Broken),emoji.get("broken_heart"),emoji.get("sob"));
+      console.log("Para verificar los links rotos puedes usar",chalk.hex('#19BAF6').bold("--validate"),"\n" + "También puedes verlos ingresando",chalk.hex('#19BAF6').bold("--validate"), "y",chalk.hex('#19BAF6').bold("--stats") + " de manera simultanea")
                    
 
 

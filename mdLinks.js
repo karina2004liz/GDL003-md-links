@@ -24,6 +24,10 @@ return new Promise((resolved, rejected) => {
       readingFile(filePath)
       .then(result => {
 
+         if (options.length === 0) {
+            resolved("You need to select a parameter to be able to read the data: \n"+ "Example:\n"+ "README.md --validate \n"+ "README.md --stats" )
+         }
+
        if (options.length === 2 && ((options[0].validate && options[1].stats) || (options[1].validate && options[0].stats))) {
                   getLinksOknoOk(result)
                         .then(result => {
@@ -56,7 +60,15 @@ return new Promise((resolved, rejected) => {
                // Empieza mi función stats para en caso de que sea Dir
              if (stats.isDirectory()) {
 
-               resolved(starAppWithFileOrDir(filePath, options));
+               if (options.length === 0) {
+                  resolved("You need to select a parameter to be able to read the data: \n"+ "Example:\n"+ "./ --validate \n"+ "./ --stats" )
+               }
+      
+               if(options.length > 0){
+
+                  resolved(starAppWithFileOrDir(filePath, options));
+               }
+              
             
          }
       }
